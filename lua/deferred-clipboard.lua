@@ -38,7 +38,9 @@ local function schedule_clipboard_sync_on_focus_change()
         group = deferred_clipboard_sync_group,
         pattern = '*',
         callback = function()
-            copy_register('"', '+')
+            vim.schedule(function()
+                copy_register('"', '+')
+            end)
         end
     })
 
