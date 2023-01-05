@@ -32,7 +32,8 @@ local function schedule_clipboard_sync_on_focus_change()
 
     vim.api.nvim_create_autocmd({
         'FocusLost',
-        'VimLeavePre'
+        'VimLeavePre',
+        'TextYankPost'
     }, {
         group = deferred_clipboard_sync_group,
         pattern = '*',
