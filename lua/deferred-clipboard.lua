@@ -8,11 +8,7 @@ local function is_continuous_clipboard_sync_enabled()
 end
 
 local function disable_continuous_clipboard_sync()
-    local hasFocusLostEvent = vim.api.nvim_command_output(([[echo exists('##FocusLost')]]))
-    local hasFocusGainedEvent = vim.api.nvim_command_output(([[echo exists('##FocusGained')]]))
-    if hasFocusLostEvent == '1' or hasFocusGainedEvent == '1' then
-        vim.o.clipboard = nil
-    end
+    vim.o.clipboard = nil
 end
 
 ---@param from string
@@ -31,8 +27,6 @@ local function schedule_clipboard_sync_on_focus_change()
     )
 
     vim.api.nvim_create_autocmd({
-        'FocusLost',
-        'VimLeavePre',
         'TextYankPost'
     }, {
         group = deferred_clipboard_sync_group,
